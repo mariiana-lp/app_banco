@@ -15,12 +15,9 @@ public class Account {
     private String number;
     private String type;
     private int balance;
-    private boolean Status;
+    private boolean status;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idPerson")
     private Client client;
-    @Transient
-    private String nombreCliente;
-
 
 }
