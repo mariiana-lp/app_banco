@@ -27,11 +27,9 @@ public class AccountService {
     }
 
     public Account saveAccount (Account account){
-        // Obtener el cliente desde la base de datos
         Client client = clientRepository.findById(account.getClient().getIdPerson())
                 .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
 
-        // Asignar el cliente a la cuenta
         account.setClient(client);
         return accountRepository.save(account);
     }
