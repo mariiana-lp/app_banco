@@ -1,12 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Account;
-import com.example.demo.entity.Client;
 import com.example.demo.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.swing.plaf.PanelUI;
 import java.util.List;
 
 @RestController
