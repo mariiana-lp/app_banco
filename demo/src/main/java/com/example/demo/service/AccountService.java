@@ -35,6 +35,10 @@ public class AccountService {
     }
 
     public void deleteAccount(long id){
-        accountRepository.deleteById(id);
+        try {
+            accountRepository.deleteById(id);
+        }catch (Exception e){
+            System.out.println("Error al eliminar cuenta: " + e.getMessage());
+        }
     }
 }

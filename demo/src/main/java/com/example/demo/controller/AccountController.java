@@ -35,8 +35,7 @@ public class AccountController {
         account.setBalance(accountDetails.getBalance());
         account.setStatus(accountDetails.isStatus());
         account.setClient(accountDetails.getClient());
-        account.setStatus(accountDetails.isStatus());
-        account.setClient(accountDetails.getClient());
+
         return accountService.saveAccount(account);
     }
 

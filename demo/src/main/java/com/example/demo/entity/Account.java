@@ -18,7 +18,7 @@ public class Account {
     private int balance;
     private boolean status;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idPerson")
     private Client client;
 

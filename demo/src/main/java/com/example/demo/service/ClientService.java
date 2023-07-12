@@ -25,6 +25,11 @@ public class ClientService {
     }
 
     public void deleteClient(long id) {
-        clientRepository.deleteById(id);
+        try {
+            clientRepository.deleteById(id);
+        }catch (Exception e){
+            System.out.println("Error al eliminar el cliente: " + e.getMessage());
+        }
+
     }
 }
