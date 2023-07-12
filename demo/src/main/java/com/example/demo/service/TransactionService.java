@@ -31,6 +31,22 @@ public class TransactionService {
         Account account = accountRepository.findById((transaction.getAccount().getIdAccount()))
                 .orElseThrow(()-> new IllegalArgumentException("Cuenta no encontrada"));
         transaction.setAccount(account);
+
+        int currentBalance = account.getBalance();
+        int newBalance = currentBalance;
+
+        if(transaction.getType().equals("debit")){
+            if(transaction.getValue()<= currentBalance){
+                newBalance = currentBalance - transaction.getValue();
+            }else {
+                new IllegalArgumentException("Saldo insuficiente");
+            }
+        }else if(transaction.getType().equals("credit")){
+            newBalance = currentBalance + transaction.getValue();
+        }
+        account.setBalance(newBalance);
+        transaction.setBalance(newBalance);
+        accountRepository.save(account);
         return transactionsRepository.save(transaction);
     }
 
