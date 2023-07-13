@@ -50,6 +50,12 @@ public class TransactionService {
         return transactionsRepository.save(transaction);
     }
 
+    /*public void generateReport(String Date, long idClient ) {
+        // Lógica para generar el informe y obtener los resultados en formato base64 (PDF) y JSON
+        // ...
+    }*/
+
+
     public void deleteTransaction(long id){
         transactionsRepository.deleteById(id);
     }

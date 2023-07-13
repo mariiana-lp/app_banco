@@ -1,32 +1,39 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Client;
-
 import com.example.demo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import javax.validation.ConstraintViolationException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "api/v1/client")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class ClientController {
     @Autowired
     private ClientService clientService;
 
     @GetMapping
-    public List<Client> getAllClients() {
-        return clientService.getAllClients();
+    public ResponseEntity<List<Client>> getAllClients() {
+        return ResponseEntity.ok(clientService.getAllClients()) ;
     }
 
     @GetMapping("/{id}")
-    public Client getClientById(@PathVariable long id) {
-        return clientService.getClientById(id);
+    public ResponseEntity<Client> getClientById(@PathVariable long id) {
+        Client client = clientService.getClientById(id);
+        if (client == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(client);
     }
 
     @PostMapping
-    public Client createClient(@RequestBody Client client) {
-        return clientService.saveClient(client);
+    public ResponseEntity<Client> createClient(@RequestBody Client client) {
+        return ResponseEntity.ok(clientService.saveClient(client));
     }
 
     @PutMapping("/{id}")
@@ -46,5 +53,12 @@ public class ClientController {
     @DeleteMapping("/{id}")
     public void deleteClient(@PathVariable long id) {
         clientService.deleteClient(id);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleValidationException(ConstraintViolationException ex) {
+        Map<String, String> response = new HashMap<>();
+        response.put("error", ex.getMessage());
+        return ResponseEntity.badRequest().body(response);
     }
 }
